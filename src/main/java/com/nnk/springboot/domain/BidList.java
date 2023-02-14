@@ -1,9 +1,7 @@
 package com.nnk.springboot.domain;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,7 +12,8 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "bidlist")
@@ -43,7 +42,7 @@ public class BidList {
     String benchmark;
     @NotNull(message="must not be null - bidListDate is mandatory")
     Timestamp bidListDate;
-    @Column(length = 255)
+    @Column(length = 250)
     String commentary;
     @Column(length = 32)
     String security;

@@ -1,4 +1,4 @@
-package com.nnk.springboot.Exceptions;
+package com.nnk.springboot.exceptions;
 
 public class DataNotFoundException extends Exception {
 

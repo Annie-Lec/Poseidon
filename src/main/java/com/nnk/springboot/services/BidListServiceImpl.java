@@ -1,9 +1,10 @@
 package com.nnk.springboot.services;
 
-import com.nnk.springboot.Exceptions.DataNotFoundException;
+import com.nnk.springboot.exceptions.DataNotFoundException;
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import java.util.List;
 @Service
 @Transactional
 @Log4j2
+@NoArgsConstructor
 @AllArgsConstructor
 public class BidListServiceImpl implements BidListService{
     //injection des dépendances par le constructor
@@ -26,31 +28,21 @@ public class BidListServiceImpl implements BidListService{
     }
 
     @Override
-    public BidList getBidListById(Integer id) {
+    public BidList getBidListById(Integer id) throws DataNotFoundException {
         log.info("Service ---> find one bidList ");
         return bidListRepository.findById(id)
-                .orElseThrow(() -> new DataNotFoundException("Invalid bidList Id:" + id));
+                .orElseThrow(() -> new DataNotFoundException("BidList Id not found in database : " + id));
     }
 
     @Override
     public BidList saveBid(BidList bidlist) {
         log.info("Service ---> save one bidList ");
-        return null;
-    }
-
-    @Override
-    public BidList updateBidList(BidList bidlist) {
-        log.info("Service ---> update one bidList ");
-        BidList bidListToUpdate = bidListRepository.findById(bidlist.getBidListId()).get();
-
-        return null;
+        return bidListRepository.save(bidlist);
     }
 
     @Override
     public void deleteBidList(Integer id) {
         log.info("Service ---> delete one bidList ");
-
         bidListRepository.deleteById(id);
-
     }
 }

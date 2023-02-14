@@ -1,21 +1,25 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.nnk.springboot.services.UserService;
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@Log4j2
+@AllArgsConstructor
 @RequestMapping("app")
 public class LoginController {
 
-    @Autowired
-    private UserRepository userRepository;
+
+    private UserService userService;
 
     @GetMapping("login")
     public ModelAndView login() {
+        log.info("Display login page");
         ModelAndView mav = new ModelAndView();
         mav.setViewName("login");
         return mav;
@@ -24,7 +28,7 @@ public class LoginController {
     @GetMapping("secure/article-details")
     public ModelAndView getAllUserArticles() {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("users", userRepository.findAll());
+        mav.addObject("users", userService.getAllUsers());
         mav.setViewName("user/list");
         return mav;
     }

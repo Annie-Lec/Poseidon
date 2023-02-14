@@ -1,6 +1,9 @@
 package com.nnk.springboot.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,8 +14,8 @@ import javax.validation.constraints.Pattern;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
-public class User {
+//@Table(name = "app-user")
+public class AppUser {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
@@ -28,6 +31,5 @@ public class User {
 
     @NotBlank(message = "Role is mandatory")
     private String role;
-
 
 }

@@ -1,10 +1,13 @@
 package com.nnk.springboot.repositories;
 
-import com.nnk.springboot.domain.User;
+import com.nnk.springboot.domain.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+
+import java.util.Optional;
 
 
-public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecificationExecutor<User> {
+public interface UserRepository extends JpaRepository<AppUser, Integer> {
+
+    public Optional<AppUser> findByUsername(String username);
 
 }
