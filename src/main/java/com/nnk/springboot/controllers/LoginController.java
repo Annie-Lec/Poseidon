@@ -2,28 +2,36 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.services.UserService;
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Controller;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
-@Log4j2
+@RestController
+@Slf4j
 @AllArgsConstructor
-@RequestMapping("app")
+//@RequestMapping("app")
 public class LoginController {
 
 
     private UserService userService;
 
+    @GetMapping("loginWithUserPwd")
+    public ModelAndView loginWithUserPwd() {
+        log.info("Display login page");
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("loginWithUserPwd");
+        return mav;
+    }
+
     @GetMapping("login")
     public ModelAndView login() {
-        log.info("Display login page");
+        log.info("Display login Oauth2 page");
         ModelAndView mav = new ModelAndView();
         mav.setViewName("login");
         return mav;
     }
+
 
     @GetMapping("secure/article-details")
     public ModelAndView getAllUserArticles() {

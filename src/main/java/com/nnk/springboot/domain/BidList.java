@@ -1,13 +1,14 @@
 package com.nnk.springboot.domain;
 
 
-import lombok.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -15,13 +16,19 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "bidlist")
+//@AllArgsConstructor
+@Table(name = "bid_list")
 public class BidList {
 
+    public BidList(String account, String type, BigDecimal bidQuantity ){
+        this.account = account;
+        this.type = type;
+        this.bidQuantity = bidQuantity;
+    }
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    Integer BidListId;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    Integer id;
     @NotBlank(message = "Account is mandatory")
     @Column(length = 32)
     String account;
@@ -40,7 +47,7 @@ public class BidList {
 
     @Column(length = 125)
     String benchmark;
-    @NotNull(message="must not be null - bidListDate is mandatory")
+
     Timestamp bidListDate;
     @Column(length = 250)
     String commentary;

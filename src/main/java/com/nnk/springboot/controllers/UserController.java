@@ -1,8 +1,11 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.AppUser;
-import com.nnk.springboot.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.nnk.springboot.exceptions.DataNotFoundException;
+import com.nnk.springboot.services.UserService;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,65 +15,87 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
-
 @Controller
+@AllArgsConstructor
+@Slf4j
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
+
+    private UserService userService;
 
     @RequestMapping("/user/list")
     public String home(Model model)
     {
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("users", userService.getAllUsers());
         return "user/list";
     }
 
     @GetMapping("/user/add")
-    public String addUser(AppUser bid) {
+    public String addUser(Model model, AppUser user) {
+        log.info("Controller ---> display one user without data ");
+        model.addAttribute("user", user);
         return "user/add";
     }
 
     @PostMapping("/user/validate")
-    public String validate(@Valid AppUser user, BindingResult result, Model model) {
+    public String validate(@Valid AppUser appUser, BindingResult result, Model model) {
+       //
+        String exists=null;
         if (!result.hasErrors()) {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            user.setPassword(encoder.encode(user.getPassword()));
-            userRepository.save(user);
-            model.addAttribute("users", userRepository.findAll());
+            appUser.setPassword(encoder.encode(appUser.getPassword()));
+            userService.saveUser(appUser);
+            model.addAttribute("appUser", new AppUser());
+            model.addAttribute("users", userService.getAllUsers());
+            model.addAttribute("exists", exists);
             return "redirect:/user/list";
         }
+        log.error("Controller ---> error while creating one user ");
+        exists = "pbData";
         return "user/add";
     }
 
     @GetMapping("/user/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        AppUser user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model)  {
+        AppUser user = userService.getUserById(id);
         user.setPassword("");
         model.addAttribute("user", user);
+        log.info("display form to update user");
         return "user/update";
+
+
     }
 
     @PostMapping("/user/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid AppUser user,
-                             BindingResult result, Model model) {
+                             BindingResult result, Model model) throws DataNotFoundException {
         if (result.hasErrors()) {
-            return "user/update";
+            log.error("User - impossible to update : validation error data");
+           // model.addAttribute("user", user);
+            System.out.println( " c est pas bon !! update KO KO KO 1");
+            return "redirect:/user/update/{id}";
         }
+     //   model.addAttribute("user", user);
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
+    //    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+      //  user.setPassword(encoder.encode(user.getPassword()));
         user.setId(id);
-        userRepository.save(user);
-        model.addAttribute("users", userRepository.findAll());
+      //  userService.saveUser(user);
+        System.out.println( " c est pas bon !! update KO KO KO 2");
+
+        userService.updateUser(id, user);
+        System.out.println( " c est pas bon !! update KO KO KO 3");
+
+        model.addAttribute("users", userService.getAllUsers());
+        System.out.println( " c est pas bon !! update KO KO KO 4");
+
         return "redirect:/user/list";
     }
 
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
-        AppUser user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        userRepository.delete(user);
-        model.addAttribute("users", userRepository.findAll());
+       // AppUser user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        userService.deleteUser(id);
+        model.addAttribute("users", userService.getAllUsers());
         return "redirect:/user/list";
     }
 }

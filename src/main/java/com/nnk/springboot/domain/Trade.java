@@ -1,12 +1,13 @@
 package com.nnk.springboot.domain;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -16,11 +17,11 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "trade")
+//@Table(name = "trade")
 public class Trade {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     Integer tradeId;
 
     @NotBlank(message = "Account is mandatory")

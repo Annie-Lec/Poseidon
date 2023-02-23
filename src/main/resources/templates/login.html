@@ -1,62 +1,15 @@
 <!DOCTYPE html>
-<html lang="fr"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>LOGIN</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" />
-    <script src="https://kit.fontawesome.com/1e22565bce.js"
-            crossorigin="anonymous"></script>
-
+    <title>LOGIN OAUTH2</title>
+    <!--  <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" /> -->
 </head>
 <body>
 <div>
-    <form method="post" th:action="@{/login}">
-
-        <div th:if="${param.error}">
-            <div class="alert alert-danger">Invalid username or password !</div>
-        </div>
-        <div class="m-2">
-            <label> </label>
-            <div class="container"
-                 style="border: 1px solid silver; background-color: white;">
-                <div class="d-inline d-sm-inline-block">
-                    <i class="fas fa-envelope"></i>
-                </div>
-
-                <input class="d-inline col-10" style="border: 1px solid white;"
-                       type="text" name="username" placeholder="Username"
-                       th:value="${username}" />
-
-            </div>
-
-        </div>
-        <div  class="m-2">
-            <label> </label>
-            <div class="container"
-                 style="border: 1px solid silver; background-color: white">
-                <div class="d-inline d-sm-inline-block text-dark">
-                    <i class="fas fa-asterisk"></i>
-                </div>
-
-                <input class="d-inline col-10" style="border: 1px solid white;"
-                       type="password" name="password" placeholder="Password"
-                       th:value="${password}" />
-            </div>
-        </div>
-
-
-        <div class="d-grid gap-2 col-4 mx-auto">
-            <button type="submit" class="btn btn-primary ml-5">Log in</button>
-        </div>
-
+    <h1>Login With GitHub</h1>
+    <form method="get" th:action="@{/login}">
     </form>
-
-    <div><a href="/login/oauth2/code/github">Login with Github</a></div>
-
-
 </div>
 
 </body>

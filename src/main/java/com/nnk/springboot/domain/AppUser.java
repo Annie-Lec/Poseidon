@@ -1,21 +1,36 @@
 package com.nnk.springboot.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-//@Table(name = "app-user")
+//@AllArgsConstructor
+//@Table(name = "app_user")
 public class AppUser {
+
+    public AppUser(String username, String password, String fullname, String role) {
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.role = role;
+    }
+
+   /* public AppUser(String username, String fullname, String role) {
+        this.username = username;
+        this.fullname = fullname;
+        this.role = role;
+    }*/
+
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;

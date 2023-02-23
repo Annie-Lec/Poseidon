@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="utf-8"/>
-<title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+<title>Bid</title>
+<!--<link rel="stylesheet" href="../../css/bootstrap.min.css" > -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body>
 <div class="container">
@@ -17,7 +21,9 @@
 			<a href="/ruleName/list">Rule</a>
 		</div>
 		<div class="col-6 text-right">
-			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
+
+			Logged in user: <b th:inline="text"  class="user" >  </b>
+			<input class="form-control" type="text" name="name" th:value="${name}" />
 			<form th:action="@{/app-logout}" method="POST">
 				<input type="submit" value="Logout"/>
 			</form>
@@ -48,7 +54,7 @@
 							th:href="@{/bidList/delete(id=${p.id})}">
 						Delete </a> &nbsp;
 						<a 	class="btn btn-secondary"
-							th:href="@{/bidList/update/(id=${p.id})}">
+							th:href="@{/bidList/update(id=${p.id})}">
 						Update </a>
 					</td>
 

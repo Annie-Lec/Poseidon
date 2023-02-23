@@ -1,11 +1,14 @@
 package com.nnk.springboot.domain;
 
-import lombok.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -15,7 +18,7 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "curvepoint")
+//@Table(name = "curvepoint")
 public class CurvePoint {
 
     public CurvePoint(int curveId, BigDecimal term, BigDecimal value) {
@@ -29,7 +32,7 @@ public class CurvePoint {
     int id;
     @NotNull(message="must not be null")
     int curveId;
-    @NotNull(message="must not be null - asOfDate is mandatory")
+
     Timestamp asOfDate;
     @DecimalMin(message = "must be greater than 0.0", value = "0.0", inclusive = false)
     @Column(columnDefinition = "DECIMAL(8,1)")

@@ -2,10 +2,9 @@ package com.nnk.springboot.services;
 
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.exceptions.DataNotFoundException;
-
 import com.nnk.springboot.repositories.CurvePointRepository;
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
-@Log4j2
+@Slf4j
 @AllArgsConstructor
 public class CurvePointServiceImpl implements CurvePointService{
     //injection des dépendances par le constructor

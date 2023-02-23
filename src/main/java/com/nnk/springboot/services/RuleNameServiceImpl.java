@@ -4,7 +4,7 @@ import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.exceptions.DataNotFoundException;
 import com.nnk.springboot.repositories.RuleNameRepository;
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
-@Log4j2
+@Slf4j
 @AllArgsConstructor
 public class RuleNameServiceImpl implements RuleNameService {
     //injection des dépendances par le constructor
