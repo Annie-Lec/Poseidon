@@ -6,6 +6,8 @@ import com.nnk.springboot.services.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,10 @@ public class UserController {
     @RequestMapping("/user/list")
     public String home(Model model)
     {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        model.addAttribute("name", name);
         model.addAttribute("users", userService.getAllUsers());
         return "user/list";
     }
@@ -70,8 +76,7 @@ public class UserController {
                              BindingResult result, Model model) throws DataNotFoundException {
         if (result.hasErrors()) {
             log.error("User - impossible to update : validation error data");
-           // model.addAttribute("user", user);
-            System.out.println( " c est pas bon !! update KO KO KO 1");
+
             return "redirect:/user/update/{id}";
         }
      //   model.addAttribute("user", user);
@@ -79,14 +84,8 @@ public class UserController {
     //    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
       //  user.setPassword(encoder.encode(user.getPassword()));
         user.setId(id);
-      //  userService.saveUser(user);
-        System.out.println( " c est pas bon !! update KO KO KO 2");
-
         userService.updateUser(id, user);
-        System.out.println( " c est pas bon !! update KO KO KO 3");
-
         model.addAttribute("users", userService.getAllUsers());
-        System.out.println( " c est pas bon !! update KO KO KO 4");
 
         return "redirect:/user/list";
     }

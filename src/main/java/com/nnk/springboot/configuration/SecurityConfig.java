@@ -39,9 +39,9 @@ public class SecurityConfig {
                 .csrf().disable().authorizeHttpRequests(authorize -> {
                     try {
                         authorize
-                                .requestMatchers("/", "/admin/home", "/home/*",  "/login/*", "/loginWithUserPwd/**").permitAll()
+                                .requestMatchers("/", "/admin/home", "/home/*",  "/login/*", "/loginWithUserPwd/**", "/static/css/*","org/webjars/*").permitAll()
                                 .requestMatchers( "bidList/*", "curvePoint/*", "rating/*", "ruleName/*").hasAnyRole("ADMIN","USER")
-                              //  .requestMatchers("/user/**").hasRole("ADMIN")
+                                .requestMatchers("/user/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                                 .and()
                                 .formLogin()

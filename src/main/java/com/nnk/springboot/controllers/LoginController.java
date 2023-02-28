@@ -1,8 +1,13 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,14 +38,6 @@ public class LoginController {
     }
 
 
-    @GetMapping("secure/article-details")
-    public ModelAndView getAllUserArticles() {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("users", userService.getAllUsers());
-        mav.setViewName("user/list");
-        return mav;
-    }
-
     @GetMapping("error")
     public ModelAndView error() {
         ModelAndView mav = new ModelAndView();
@@ -49,4 +46,16 @@ public class LoginController {
         mav.setViewName("403");
         return mav;
     }
+
+
+    @GetMapping(value = "/logout")
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        log.info("Display logout page ");
+        return "redirect:/login?logout";
+    }
+
 }
