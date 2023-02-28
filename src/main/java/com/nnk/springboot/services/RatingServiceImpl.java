@@ -33,7 +33,7 @@ public class RatingServiceImpl implements RatingService{
     }
 
     @Override
-    public Rating saveBid(Rating rating) {
+    public Rating saveRating(Rating rating) {
         log.info("Service ---> save one Rating ");
         return ratingRepository.save(rating);
     }

@@ -58,7 +58,7 @@ public class BidListController {
             model.addAttribute("exists", exists);
             return "redirect:/bidList/list";
         }
-        log.error("Controller ---> error while creating one bidLists ");
+        log.error("Controller ---> error while creating one bidList ");
 
         exists = "pbData";
         return "bidList/add";
@@ -87,32 +87,17 @@ public class BidListController {
     @PostMapping("/bidList/update")
     public String update(@Valid BidList bidList,
                              BindingResult result, Model model)  {
-        // TODO: check required fields, if valid call service to update Bid and return list Bid
-
         String exists=null;
 
         if (result.hasErrors()) {
+            log.error("Controller ---> update one bid in error ");
             return "bidList/update";
         }
         else{
             bidListService.saveBid(bidList);
+            log.info("Controller ---> update one bidList with success ");
             return "redirect:/bidList/list";
         }
-/*
-        if (!result.hasErrors()) {
-            log.info("Controller ---> update one bidList ");
-
-            bidListService.saveBid(bidList);
-            model.addAttribute("bidList", bidListService.getBidListById(id));
-            model.addAttribute("bidLists", bidListService.getAllBidLists());
-            model.addAttribute("exists", exists);
-            return "redirect:/bidList/list";
-        } else {
-            log.error("BidList - impossible to update : validation error data");
-            exists = "pbData";
-            return "bidList/update";
-        }
-        */
 
     }
 

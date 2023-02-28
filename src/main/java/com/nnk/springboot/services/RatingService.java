@@ -9,7 +9,7 @@ public interface RatingService {
 
     List<Rating> getAllRatings();
     Rating getRatingById(Integer  id) throws DataNotFoundException;
-    Rating saveBid(Rating rating);
+    Rating saveRating(Rating rating);
     void deleteRating(Integer  id);
 
 }
