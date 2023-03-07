@@ -3,7 +3,6 @@ package com.nnk.springboot.services;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.exceptions.DataNotFoundException;
 import com.nnk.springboot.repositories.TradeRepository;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,10 +12,14 @@ import java.util.List;
 @Service
 @Transactional
 @Slf4j
-@AllArgsConstructor
+
 public class TradeServiceImpl implements TradeService{
     //injection des dépendances par le constructor
     private TradeRepository tradeRepository;
+
+    public TradeServiceImpl(TradeRepository tradeRepository) {
+        this.tradeRepository = tradeRepository;
+    }
 
 
     @Override

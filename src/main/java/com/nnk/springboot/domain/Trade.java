@@ -1,6 +1,7 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -16,23 +17,33 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 //@Table(name = "trade")
 public class Trade {
 
+    public Trade(String account, String type,BigDecimal buyQuantity   ) {
+        this.account = account;
+        this.type = type;
+        this.buyQuantity = buyQuantity;
+    }
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    Integer tradeId;
+    Integer id;
 
     @NotBlank(message = "Account is mandatory")
-    @Column(length = 32)
+    @Column(length = 30)
     String account;
-    @NotBlank(message = "Account is mandatory")
-    @Column(length = 32)
+
+    @NotBlank(message = "type is mandatory")
+    @Column(length = 30)
     String type;
 
+    @DecimalMin(message = "must be greater than 0", value = "0", inclusive = false)
+    @NotNull(message = "buy quantity is mandatory")
     @Column(columnDefinition = "DECIMAL(8,1)")
     BigDecimal buyQuantity;
+//--------------------------------------
     @Column(columnDefinition = "DECIMAL(8,1)")
     BigDecimal  sellQuantity;
     @Column(columnDefinition = "DECIMAL(8,1)")
@@ -40,45 +51,38 @@ public class Trade {
     @Column(columnDefinition = "DECIMAL(8,1)")
     BigDecimal  sellPrice;
 
-    @NotBlank(message = "Account is mandatory")
+    Timestamp tradeDate;
+
     @Column(length = 32)
     String benchmark;
-    @NotNull(message="must not be null - bidListDate is mandatory")
-    Timestamp tradeDate;
-    @NotBlank(message = "Account is mandatory")
     @Column(length = 32)
     String security;
-    @NotBlank(message = "Account is mandatory")
     @Column(length = 32)
     String status;
-    @NotBlank(message = "Account is mandatory")
     @Column(length = 32)
     String trader;
-    @NotBlank(message = "Account is mandatory")
     @Column(length = 32)
     String book;
-    @NotBlank(message = "Account is mandatory")
     @Column(length = 32)
     String creationName;
+
     @CreationTimestamp
     Timestamp creationDate;
-
-    @NotBlank(message = "Account is mandatory")
     @Column(length = 32)
     String revisionName;
     @UpdateTimestamp
     Timestamp revisionDate;
 
-    @NotBlank(message = "Account is mandatory")
+
     @Column(length = 32)
     String dealName;
-    @NotBlank(message = "Account is mandatory")
+
     @Column(length = 32)
     String dealType;
-    @NotBlank(message = "Account is mandatory")
+
     @Column(length = 32)
     String sourceListId;
-    @NotBlank(message = "Account is mandatory")
+
     @Column(length = 32)
     String side;
 

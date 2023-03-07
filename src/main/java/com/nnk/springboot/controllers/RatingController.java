@@ -59,6 +59,7 @@ public class RatingController {
         log.error("Controller ---> error while creating one rating ");
 
         exists = "pbData";
+        model.addAttribute("exists", exists);
         return "rating/add";
     }
 
@@ -71,7 +72,7 @@ public class RatingController {
             rating = ratingService.getRatingById(id);
         } catch (DataNotFoundException e) {
             exists = "pbData";
-            e.getMessage();
+            log.error("Controller ---> "+e.getMessage());
         }
         if(rating !=null) {
             model.addAttribute("rating",rating );
@@ -82,11 +83,13 @@ public class RatingController {
     }
 
     @PostMapping("/rating/update")
-    public String updateRating( @Valid Rating rating, BindingResult result, Model model) {
+    public String update( @Valid Rating rating, BindingResult result, Model model) {
         String exists=null;
 
         if (result.hasErrors()) {
             log.error("Controller ---> update one rating in error ");
+            exists = "pbData";
+            model.addAttribute("exists", exists);
             return "rating/update";
         }
         else{

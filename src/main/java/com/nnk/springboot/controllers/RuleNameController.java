@@ -60,6 +60,7 @@ public class RuleNameController {
         log.error("Controller ---> error while creating one ruleName ");
 
         exists = "pbData";
+        model.addAttribute("exists", exists);
 
         return "ruleName/add";
     }
@@ -74,7 +75,7 @@ public class RuleNameController {
         } catch (DataNotFoundException e) {
             log.error("Controller ---> error while open update ");
             exists = "pbData";
-            e.getMessage();
+            log.error("Controller ---> "+e.getMessage());
         }
         if(ruleName !=null) {
             model.addAttribute("ruleName",ruleName );
@@ -86,12 +87,14 @@ public class RuleNameController {
     }
 
     @PostMapping("/ruleName/update")
-    public String updateRuleName(@Valid RuleName ruleName,
+    public String update(@Valid RuleName ruleName,
                              BindingResult result, Model model) {
         String exists=null;
 
         if (result.hasErrors()) {
             log.error("Controller ---> update one ruleName in error ");
+            exists = "pbData";
+            model.addAttribute("exists", exists);
             return "bidList/update";
         }
         else{

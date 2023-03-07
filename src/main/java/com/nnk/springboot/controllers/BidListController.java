@@ -42,6 +42,7 @@ public class BidListController {
     public String addBidForm(Model model, BidList bid) {
         log.info("Controller ---> display one bidLists without data ");
         model.addAttribute("bidList", new BidList());
+
         return "bidList/add";
     }
 
@@ -61,6 +62,7 @@ public class BidListController {
         log.error("Controller ---> error while creating one bidList ");
 
         exists = "pbData";
+        model.addAttribute("exists", exists);
         return "bidList/add";
     }
 
@@ -73,7 +75,7 @@ public class BidListController {
             bidList = bidListService.getBidListById(id);
         } catch (DataNotFoundException e) {
             exists = "pbData";
-            e.getMessage();
+           log.error("Controller ---> "+e.getMessage());
         }
         if(bidList !=null) {
             model.addAttribute("bidList",bidList );
@@ -91,6 +93,8 @@ public class BidListController {
 
         if (result.hasErrors()) {
             log.error("Controller ---> update one bid in error ");
+            exists = "pbData";
+            model.addAttribute("exists", exists);
             return "bidList/update";
         }
         else{

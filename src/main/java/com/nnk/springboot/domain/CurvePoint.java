@@ -3,7 +3,6 @@ package com.nnk.springboot.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +16,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 //@Table(name = "curvepoint")
 public class CurvePoint {
 
@@ -31,10 +30,12 @@ public class CurvePoint {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @NotNull(message="must not be null")
+    @DecimalMin(message = "must be greater than 0", value = "0", inclusive = false)
     int curveId;
 
     Timestamp asOfDate;
     @DecimalMin(message = "must be greater than 0.0", value = "0.0", inclusive = false)
+    @NotNull(message="must not be null")
     @Column(columnDefinition = "DECIMAL(8,1)")
     BigDecimal term;
     @DecimalMin(message = "must be greater than 0.0", value = "0.0", inclusive = false)

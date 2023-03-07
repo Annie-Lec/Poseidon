@@ -59,6 +59,7 @@ public class CurveController {
         log.error("Controller ---> error while creating one curvePoint ");
 
         exists = "pbData";
+        model.addAttribute("exists", exists);
         return "curvePoint/add";
     }
 
@@ -71,7 +72,7 @@ public class CurveController {
             curvePoint = curvePointService.getCurvePointById(id);
         } catch (DataNotFoundException e) {
             exists = "pbData";
-            e.getMessage();
+            log.error("Controller ---> "+e.getMessage());
         }
         if(curvePoint !=null) {
             model.addAttribute("curvePoint",curvePoint );
@@ -82,11 +83,13 @@ public class CurveController {
     }
 
     @PostMapping("/curvePoint/update")
-    public String updateBid( @Valid CurvePoint curvePoint, BindingResult result, Model model) {
+    public String update( @Valid CurvePoint curvePoint, BindingResult result, Model model) {
         String exists=null;
 
         if (result.hasErrors()) {
             log.error("Controller ---> update one curvePoint in error ");
+            exists = "pbData";
+            model.addAttribute("exists", exists);
             return "curvePoint/update";
         }
         else{

@@ -46,9 +46,9 @@ public class SecurityConfig {
                                 .and()
                                 .formLogin()
                                 .loginPage("/loginWithUserPwd")
-                                .successForwardUrl("/bidList/list")
+                                .successForwardUrl("/")
                                 .and()
-                                .oauth2Login().defaultSuccessUrl("/bidList/list")
+                                .oauth2Login().defaultSuccessUrl("/")
                                 .and()
                                 .logout()
                                 .deleteCookies("JSESSIONID");

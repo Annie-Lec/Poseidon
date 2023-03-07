@@ -49,7 +49,7 @@ public class TradeController {
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
         String exists=null;
         if (!result.hasErrors()) {
-            log.info("Controller ---> create one bidLists  ");
+            log.info("Controller ---> create one Trade  ");
 
             tradeService.saveTrade(trade);
             model.addAttribute("trade", new Trade());
@@ -60,6 +60,7 @@ public class TradeController {
         log.error("Controller ---> error while creating one trade ");
 
         exists = "pbData";
+        model.addAttribute("exists", exists);
         return "trade/add";
     }
 
@@ -72,7 +73,7 @@ public class TradeController {
             trade = tradeService.getTradeById(id);
         } catch (DataNotFoundException e) {
             exists = "pbData";
-            e.getMessage();
+            log.error("Controller ---> "+e.getMessage());
         }
         if(trade !=null) {
             model.addAttribute("trade",trade );
@@ -83,12 +84,14 @@ public class TradeController {
     }
 
     @PostMapping("/trade/update")
-    public String updateTrade( @Valid Trade trade,
+    public String update( @Valid Trade trade,
                              BindingResult result, Model model) {
-      //  String exists=null;
+        String exists=null;
 
         if (result.hasErrors()) {
             log.error("Controller ---> update one trade in error ");
+            exists = "pbData";
+            model.addAttribute("exists", exists);
             return "trade/update";
         }
         else{

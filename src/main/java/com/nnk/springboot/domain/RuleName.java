@@ -22,7 +22,7 @@ public class RuleName {
     @Column(length = 32)
     String name;
 
-    @NotBlank(message = "Name is mandatory")
+    @NotBlank(message = "description is mandatory")
     @Column(length = 32)
     String description;
 
