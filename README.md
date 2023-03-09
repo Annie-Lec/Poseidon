@@ -1,14 +1,14 @@
-![Poseidon](logoPSEIDON.png)  
+![Poseidon](logoPOSEIDON.png)  
 
 ## Presentation du projet OC-Poseidon :
 
 ### Quels sot les objectifs de ce projet ?
  
 Au travers du développement d'une application de gestion d'entités financières, ce projet OpenClassRooms est orienté "sécurité". En effet, il est demandé , en plus de l'implémentation des méthodes CRUD pour les entités financières :
-	- d'implémenter l'authentification et la gestion des rôles utilisateurs, 
-	- de gérer les logs,
-	- de valider les saisies,
-	- et bien entendu de tester correctement l'application développée
+ - d'implémenter l'authentification et la gestion des rôles utilisateurs, 
+ - de gérer les logs,
+ - de valider les saisies,
+ - et bien entendu de tester correctement l'application développée.
 	 
 
 ## En pratique :
