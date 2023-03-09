@@ -20,16 +20,15 @@
                 <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                     <a class="nav-link" href="/user/list">User List</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasAuthority('ROLE_USER')">
-                    <a class="nav-link" href="/bidList/list">Bid List</a>
-                </li>
-                <li class="nav-item" sec:authorize="hasAuthority('ROLE_USER')">
+                <li class="nav-item" sec:authorize="isAuthenticated() and !hasAuthority('ROLE_ADMIN')">
+                    <a class="nav-link" href="/bidList/list">Bid List</a> </li>
+                <li class="nav-item" sec:authorize="isAuthenticated() and !hasAuthority('ROLE_ADMIN')">
                     <a class="nav-link" href="/curvePoint/list">Curve Points</a></li>
-                <li class="nav-item" sec:authorize="hasAuthority('ROLE_USER')">
+                <li class="nav-item" sec:authorize="isAuthenticated() and !hasAuthority('ROLE_ADMIN')">
                     <a class="nav-link" href="/rating/list">Ratings</a></li>
-                <li class="nav-item" sec:authorize="hasAuthority('ROLE_USER')">
+                <li class="nav-item" sec:authorize="isAuthenticated() and !hasAuthority('ROLE_ADMIN')" >
                     <a class="nav-link" href="/trade/list">Trade</a></li>
-                <li class="nav-item" sec:authorize="hasAuthority('ROLE_USER')">
+                <li class="nav-item" sec:authorize="isAuthenticated() and !hasAuthority('ROLE_ADMIN')">
                     <a class="nav-link" href="/ruleName/list">Rule</a></li>
                 <li class="nav-item" sec:authorize="isAnonymous()">
                     <a class="nav-link" th:href="@{loginWithUserPwd}">Login</a></li>
@@ -47,8 +46,12 @@
     <div class="row"><h2>HOME PAGE</h2></div>
     <div class="row">
 
+        <p class="text-capitalize">
+            Choose in the Menu !!
+        </p>
+
         <p>
-            <a href="/loginWithUserPwd">Login</a> or create one <a href="/user/list">User management</a>
+            <input class="form-control" readonly="readonly" type="text" name="principalU" th:value="${principalU}"/>
         </p>
     </div>
 </div>
